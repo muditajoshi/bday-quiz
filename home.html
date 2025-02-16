@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="home.css">
+  </head>
+  <body>
+    <div class="main">
+      <h1><center>Birthday Quiz</center></h1>
+     
+<center>
+      <div class="section">
+         <div class="question-box">Click on the wrong word!</div>
+         <div id="word"></div>
+        
+        <button id="next-btn">Next</button>
+      </div></center>
+    </div>
+    <script>
+     const qst = [
+     { text: "Today was Rajat's birthday.", wrong: "was" },
+            { text: "Rajat is very intelligent guy.", wrong: "very" },
+            { text: "He loves myself every day.", wrong: "myself" },
+            { text: "Rajat make the best rice.", wrong: "make" }
+        ];
+
+        let currentIndex = 0;
+        const wordContainer=document.getElementById("word")
+        const nextBtn=document.getElementById("next-btn")
+
+
+function loadQuestion() {
+    wordContainer.innerHTML = ""; // Clear previous words
+    nextBtn.style.display = "none"; // Hide next button
+
+    const question = qst[currentIndex]; // Get current question
+    const words = question.text.split(" "); // Split into words
+
+    words.forEach((word) => {
+        const span = document.createElement("span"); // Create a span for each word
+        span.textContent = word;
+        span.classList.add("word"); // Add class for styling
+
+        // Check if the clicked word is wrong
+        span.addEventListener("click", () => {
+            if (word === question.wrong) {
+                nextBtn.style.display = "block"; // Show Next button
+            } else {
+                alert("Try again! This is not the wrong word.");
+            }
+        });
+
+        wordContainer.appendChild(span); // Add to the page
+        wordContainer.appendChild(document.createTextNode(" ")); // Add space between words
+    });
+}
+
+// Go to the next question
+nextBtn.addEventListener("click", () => {
+    currentIndex++;
+    if (currentIndex < qst.length) {
+        loadQuestion();
+    } else {
+        // wordContainer.innerHTML = "<h2>Quiz Completed! 🎉</h2> <button>Finish</button>";
+        // nextBtn.style.display = "none";
+        window.location.href = "quiz.html";
+    }
+});
+
+loadQuestion(); // Load the first question
+
+    </script>
+  </body>
+</html>
